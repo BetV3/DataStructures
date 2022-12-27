@@ -1,5 +1,3 @@
-package Java;
-
 class Node {
     int val;
     Node next;
@@ -47,6 +45,31 @@ public class SinglyLinkedList {
             temp.next = add;
         }
     }
+    public void add(int index, int value) {
+        Node add = new Node(value);
+        if (this.size() < index || index < 0) {
+            throw new IndexOutOfBoundsException("Index out of Bounds");
+        }
+        if (this.head.next == null) {
+            head.next = add;
+        }
+        else {
+            Node temp = this.head;
+            int cur = 0;
+            while (cur != index-1) {
+                temp = temp.next;
+                cur++;
+            }
+            add.next = temp.next;
+            temp.next = add;
+        }
+    }
+    public void addFirst(int value) {
+        Node add = new Node(value);
+        Node temp = head;
+        this.head = add;
+        this.head.next = temp;
+    }
     public void printList() {
         Node temp = head;
         while (temp != null) {
@@ -58,6 +81,8 @@ public class SinglyLinkedList {
         SinglyLinkedList testing = new SinglyLinkedList(1);
         testing.add(2);
         testing.add(3);
+        testing.add(-1, 5);
+        testing.addFirst(6);
         testing.printList();
     }
 }
