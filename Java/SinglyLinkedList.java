@@ -77,25 +77,31 @@ public class SinglyLinkedList {
         if(this.head == null) {
             this.head = add;
             length++;
+            return;
         }  
         // Adding Node to the head
         Node temp = head;
         this.head = add;
         this.head.next = temp;
+        length++;
     }
     public void addLast(int value) {
         Node add = new Node(value);
         if (this.head == null) {
             this.head = add;
+            length++;
+            return;
         }
         Node temp = head;
         while(temp.next != null) {
             temp = temp.next;
         }
         temp.next = add;
+        length++;
     }
     public void clear(){
         this.head = null;
+        this.length = 0;
     }
     public int get(int index) {
         if (index > this.size() || index < 0) {
@@ -163,6 +169,34 @@ public class SinglyLinkedList {
         }
         return lastIndex;
     }
+    public int remove() {
+        if (this.head.next == null) {
+            int temp = head.val;
+            this.head = null;
+            return temp;
+        }
+        int tempVal = this.head.val;
+        this.head = this.head.next;
+        return tempVal;
+    }
+    public int removeFirst() {
+        return remove();
+    }
+    public int removeLast() {
+        if (this.head.next == null) { 
+            int temp = this.head.val;
+            this.head = null;
+            return temp;
+        }
+        Node temp = this.head;
+        while(temp.next.next != null) {
+            temp = temp.next;
+        }
+        int lastVal = temp.next.val;
+        temp.next = null;
+        return lastVal;
+    }
+
     public void printList() {
         Node temp = head;
         while (temp != null) {
@@ -178,6 +212,9 @@ public class SinglyLinkedList {
         testing.addFirst(6);
         testing.addLast(10);
         System.out.println(testing.lastIndexOf(1));
+        testing.printList();
+        System.out.println();
+        System.out.println(testing.remove());
         testing.printList();
     }
 }
